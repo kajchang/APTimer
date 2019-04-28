@@ -14,6 +14,7 @@ const tests = [
 
 const Search = () => {
     const [value, setValue] = useState('');
+    const [done, setDone] = useState(false);
     const inputRef = useRef(null);
 
     const suggestions = tests
@@ -31,15 +32,29 @@ const Search = () => {
                     } }
                     inputRef={ inputRef }
                     value={ value }
-                    onChange={ e => setValue(e.target.value) }
+                    onChange={ e => {
+                        setDone(false);
+                        setValue(e.target.value);
+                    } }
+                    inputProps={ {
+                        onKeyDown: e => {
+                            if (e.keyCode === 13) {
+                                setDone(true);
+                                setValue(suggestions[0]);
+                            }
+                        }
+                    } }
                     placeholder='Search AP Tests...'
                 />
-                <Popper open={ Boolean(suggestions) } anchorEl={ inputRef.current }>
+                <Popper open={ Boolean(suggestions) && !done } anchorEl={ inputRef.current }>
                     <Paper
                         style={ { width: inputRef.current ? inputRef.current.clientWidth : null } }>
                         {
                             suggestions.map((suggestion, idx) =>
-                                <MenuItem key={ idx }>{
+                                <MenuItem key={ idx } onClick={ () => {
+                                    setDone(true);
+                                    setValue(suggestion);
+                                } }>{
                                     parse(suggestion, match(suggestion, value)).map((match, idx) => <span key={ idx } style={ {
                                         opacity: match.highlight ? 1 : 0.5,
                                         whiteSpace: 'pre'
