@@ -54,7 +54,7 @@ const Search = () => {
                                 <MenuItem key={ idx } onClick={ () => {
                                     setDone(true);
                                     setValue(suggestion);
-                                } }>{
+                                } } style={ { cursor: 'pointer' } }>{
                                     parse(suggestion, match(suggestion, value)).map((match, idx) => <span key={ idx } style={ {
                                         opacity: match.highlight ? 1 : 0.5,
                                         whiteSpace: 'pre'
