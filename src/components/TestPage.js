@@ -1,12 +1,18 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import Layout from './Layout'
 
 const TestPage = ({ pageContext }) => {
-    const { testName } = pageContext;
+    const { name, sections } = pageContext;
 
     return (
         <Layout>
-            { testName }
+            { name }
+            { Object.keys(sections).map(section =>
+                <Fragment>
+                    <strong>{ section }</strong>
+                    <span>{ sections[section] }</span>
+                </Fragment>
+            ) }
         </Layout>
     );
 }

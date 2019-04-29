@@ -6,13 +6,11 @@ const tests = require('./src/data/tests');
 exports.createPages = ({ actions }) => {
     const { createPage } = actions;
 
-    tests.forEach(testName => {
+    tests.forEach(test => {
         createPage({
-            path: `/${ slugify(testName, { lower: true }) }`,
+            path: `/${ slugify(test.name, { lower: true }) }`,
             component: path.resolve('src/components/TestPage.js'),
-            context: {
-                testName
-            }
+            context: test
         });
     });
 }
