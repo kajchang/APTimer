@@ -1,20 +1,16 @@
 import React, { Fragment, useState, useRef } from 'react';
 import { Button, Grid, TextField, Popper, Paper, MenuItem } from '@material-ui/core';
 
+import { navigate } from '@reach/router';
+import slugify from 'slugify';
 import isEqual from 'lodash/isEqual';
 import match from 'autosuggest-highlight/match';
 import parse from 'autosuggest-highlight/parse';
 
-const tests = [
-    'AP European History',
-    'AP Computer Science Principles',
-    'AP Human Geography',
-    'AP Physics'
-].sort()
+import tests from '../data/tests.json';
 
-const Search = () => {
+const TestSearch = () => {
     const [value, setValue] = useState('');
-    const [done, setDone] = useState(false);
     const inputRef = useRef(null);
 
     const suggestions = tests
@@ -32,27 +28,26 @@ const Search = () => {
                     } }
                     inputRef={ inputRef }
                     value={ value }
-                    onChange={ e => {
-                        setDone(false);
-                        setValue(e.target.value);
-                    } }
+                    onChange={ e => setValue(e.target.value) }
                     inputProps={ {
                         onKeyDown: e => {
                             if (e.keyCode === 13) {
-                                setDone(true);
-                                setValue(suggestions[0]);
+                                if (tests.includes(value)) {
+                                    navigate(slugify(value, { lower: true }));
+                                } else {
+                                    setValue(suggestions[0]);
+                                }
                             }
                         }
                     } }
                     placeholder='Search AP Tests...'
                 />
-                <Popper open={ Boolean(suggestions) && !done } anchorEl={ inputRef.current }>
+                <Popper open={ Boolean(suggestions) && !tests.includes(value) } anchorEl={ inputRef.current }>
                     <Paper
                         style={ { width: inputRef.current ? inputRef.current.clientWidth : null } }>
                         {
                             suggestions.map((suggestion, idx) =>
                                 <MenuItem key={ idx } onClick={ () => {
-                                    setDone(true);
                                     setValue(suggestion);
                                 } } style={ { cursor: 'pointer' } }>{
                                     parse(suggestion, match(suggestion, value)).map((match, idx) => <span key={ idx } style={ {
@@ -68,10 +63,14 @@ const Search = () => {
                 </Popper>
             </Grid>
             <Grid item>
-                <Button>Select</Button>
+                <Button onClick={ () => {
+                    if (tests.includes(value)) {
+                        navigate(slugify(value, { lower: true }));
+                    }
+                } }>Select</Button>
             </Grid>
         </Fragment>
     );
 }
 
-export default Search;
+export default TestSearch;

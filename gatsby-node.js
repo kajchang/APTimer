@@ -1,7 +1,18 @@
-/**
- * Implement Gatsby's Node APIs in this file.
- *
- * See: https://www.gatsbyjs.org/docs/node-apis/
- */
+const path = require('path');
+const slugify = require('slugify');
 
-// You can delete this file if you're not using it
+const tests = require('./src/data/tests');
+
+exports.createPages = ({ actions }) => {
+    const { createPage } = actions;
+
+    tests.forEach(testName => {
+        createPage({
+            path: `/${ slugify(testName, { lower: true }) }`,
+            component: path.resolve('src/components/TestPage.js'),
+            context: {
+                testName
+            }
+        });
+    });
+}

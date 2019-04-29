@@ -1,10 +1,10 @@
 import React  from 'react';
 import Layout from '../components/Layout';
-import Search from '../components/Search';
+import TestSearch from '../components/TestSearch';
 
 const IndexPage = () => (
     <Layout>
-        <Search/>
+        <TestSearch/>
     </Layout>
 );
 
