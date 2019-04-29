@@ -20,8 +20,7 @@ axios.get('https://apcentral.collegeboard.org/courses')
                             const nodes = $('.node.node-free-form-text.view-mode-rich_list').toArray();
                             const examFormatNode = $($(nodes[nodes.findIndex(node => $(node).text().trim() === 'Exam Format') + 1]).find('.field-item.even'));
 
-                            const sections = examFormatNode.children('h3').toArray();
-                            const summaries = examFormatNode.children('p').toArray();
+                            const children = examFormatNode.children().toArray();
 
                             const testData = {
                                 name: 'AP '
@@ -33,19 +32,19 @@ axios.get('https://apcentral.collegeboard.org/courses')
                                 sections: {}
                             };
 
-                            for (let i = 0; i < sections.length; i++) {
-                                const section = sections[i];
-                                const part = summaries[i];
-
-                                testData.sections[$(section).text()] = $(part).text();
-                            }
+                            children.forEach((child, idx) => {
+                                if (child.tagName === 'h3') {
+                                    testData.sections[$(child).text()] = $(children[idx + 1]).text();
+                                }
+                            });
 
                             resolve(testData);
                         })
-                        .catch(() => resolve({}))
+                        .catch(() => resolve({}));
                 })
         ));
     })
     .then(testData => {
+        console.log('Done!');
         fs.writeFileSync(path.join(__dirname, 'src/data/tests.json'), JSON.stringify(testData.filter(data => !isEqual(data, {}))));
     });
