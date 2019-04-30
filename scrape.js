@@ -22,13 +22,10 @@ axios.get('https://apcentral.collegeboard.org/courses')
 
                             const children = examFormatNode.children().toArray();
 
+                            const title = $('title').text();
+
                             const testData = {
-                                name: 'AP '
-                                    .concat($('.course-name').text()
-                                        .slice(3)
-                                        .split(' ')
-                                        .map(word => word.charAt(0).toUpperCase().concat(word.slice(1).toLowerCase()))
-                                        .join(' ')),
+                                name: title.slice(0, title.indexOf(':')),
                                 sections: {}
                             };
 
