@@ -4,16 +4,14 @@ import { Link } from 'gatsby';
 
 import '../styles/layout.css';
 
-const Layout = ({ children }) => (
+const Layout = ({ children, gridProps }) => (
     <Fragment>
         <AppBar position='static'>
             <Toolbar>
                 <Link to='/' style={ { color: 'white' } }>AP Timer</Link>
             </Toolbar>
         </AppBar>
-        <Grid container direction='column' justify='center' alignItems='center' style={ {
-            height: 'calc(70% - 64px)'
-        } }>
+        <Grid container { ...gridProps }>
             { children }
         </Grid>
     </Fragment>

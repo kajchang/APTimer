@@ -8,7 +8,6 @@ import match from 'autosuggest-highlight/match';
 import parse from 'autosuggest-highlight/parse';
 
 const tests = require('../data/tests.json').map(test => test.name);
-console.log(tests);
 
 const TestSearch = () => {
     const [value, setValue] = useState('');

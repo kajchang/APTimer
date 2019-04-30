@@ -46,5 +46,5 @@ axios.get('https://apcentral.collegeboard.org/courses')
     })
     .then(testData => {
         console.log('Done!');
-        fs.writeFileSync(path.join(__dirname, 'src/data/tests.json'), JSON.stringify(testData.filter(data => !isEqual(data, {}))));
+        fs.writeFileSync(path.join(__dirname, 'src/data/tests.json'), JSON.stringify(testData.filter(data => !(data.sections === undefined) && !isEqual(data.sections, {}))));
     });
