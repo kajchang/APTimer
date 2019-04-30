@@ -61,7 +61,10 @@ const TestSearch = () => {
             </Popper>
             <Button onClick={ () => {
                 if (tests.includes(value)) {
-                    navigate(slugify(value, { lower: true }));
+                    navigate(slugify(value, {
+                        lower: true,
+                        remove: /:/
+                    }));
                 }
             } }>Select</Button>
         </Fragment>

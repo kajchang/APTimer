@@ -8,7 +8,10 @@ exports.createPages = ({ actions }) => {
 
     tests.forEach(test => {
         createPage({
-            path: `/${ slugify(test.name, { lower: true }) }`,
+            path: `/${ slugify(test.name, {
+                lower: true,
+                remove: /:/
+            }) }`,
             component: path.resolve('src/components/TestPage.js'),
             context: test
         });
