@@ -14,22 +14,21 @@ const Section = withStyles({
         }
     }
 })(({ name, sectionText, classes }) => {
-    const [, type, questions, time, readingMinutes, scorePercentage] = sectionRegex.exec(sectionText);
+    const [, type, questions, time, , scorePercentage] = sectionRegex.exec(sectionText);
     sectionRegex.lastIndex = 0;
 
     return (
         <Paper
             className={ classes.section }
-            style={ { padding: 15, margin: 10, minWidth: 500, cursor: 'pointer' } }
+            style={ { padding: 15, margin: 10, width: 600, maxWidth: '85vw', cursor: 'pointer' } }
         >
             <Grid container direction='row' justify='space-between' alignItems='flex-start'>
                 <div>
                     <strong style={ { display: 'block' } }>{ name }</strong>
                     <span style={ { display: 'block' } }>{ type }</span>
                     <span style={ { display: 'block' } }>
-                { questions } Questions — { time }
-                        { readingMinutes ? <span> — { readingMinutes } Reading Minutes</span> : null }
-                </span>
+                        { questions } Questions — { time }
+                    </span>
                     <span style={ { display: 'block' } }>{ scorePercentage }% of Total Score</span>
                 </div>
                 <div style={ { marginTop: 'auto',  marginBottom: 'auto', fontSize: 36 } }>
@@ -44,7 +43,7 @@ const TestPage = ({ pageContext }) => {
     const { name, sections } = pageContext;
 
     return (
-        <Layout height='calc(85% - 64px)'>
+        <Layout>
             <h3>{ name }</h3>
             { Object.keys(sections).map((section, idx) =>
                 <Section
