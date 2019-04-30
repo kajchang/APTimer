@@ -1,3 +1,4 @@
 module.exports = {
-  pathPrefix: '/APTimer'
+  pathPrefix: '/APTimer',
+  plugins: [`gatsby-plugin-jss`, `gatsby-plugin-material-ui`]
 }

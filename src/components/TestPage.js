@@ -13,7 +13,7 @@ const Section = withStyles({
             background: 'rgba(0, 0, 0, 0.08)',
         }
     }
-})(({ name, sectionText, classes }) => {
+})(({ name, sectionText, classes, theme }) => {
     const [, type, questions, time, readingMinutes, scorePercentage] = sectionRegex.exec(sectionText);
     sectionRegex.lastIndex = 0;
 
@@ -44,14 +44,7 @@ const TestPage = ({ pageContext }) => {
     const { name, sections } = pageContext;
 
     return (
-        <Layout gridProps={ {
-            direction: 'column',
-            justify: 'center',
-            alignItems: 'center',
-            style: {
-                height: 'calc(85% - 64px)'
-            }
-        } }>
+        <Layout height='calc(85% - 64px)'>
             <h3>{ name }</h3>
             { Object.keys(sections).map((section, idx) =>
                 <Section
