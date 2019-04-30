@@ -4,7 +4,8 @@ import Layout from './Layout';
 
 import { withStyles } from '@material-ui/core/styles';
 
-const sectionRegex = /((?:[A-Z][a-z]+ ?)+) ?— ?(\d+) (?:[A-Z][a-z]+[- ]?)+ ?\| ((?:(?:\d+) (?:Minutes|Hours?),? )+)(?:\(includes (\d+)-minute reading period\) )?\| ?(\d+)% of Exam Score/g;
+// sad regex :(
+const sectionRegex = /((?:[A-Z][a-z]+ ?)+) ?— ?(~?\d+(?: to \d+)?) (?:[A-Z][a-z]+[- ]?)+ ?\| ((?:~? ?(?:\d+) (?:[Mm]inutes|[Hh]ours?),?\s)+)(?:\(includes a? ?(\d+)-minute reading period\) )?\| ?([\d.]+)% of Exam Score/g;
 
 const Section = withStyles({
     section: {
