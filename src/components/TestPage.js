@@ -13,7 +13,7 @@ const Section = withStyles({
             background: 'rgba(0, 0, 0, 0.08)',
         }
     }
-})(({ name, sectionText, classes, theme }) => {
+})(({ name, sectionText, classes }) => {
     const [, type, questions, time, readingMinutes, scorePercentage] = sectionRegex.exec(sectionText);
     sectionRegex.lastIndex = 0;
 

@@ -25,7 +25,7 @@ axios.get('https://apcentral.collegeboard.org/courses')
                             const title = $('title').text();
 
                             const testData = {
-                                name: title.slice(0, title.indexOf(':')),
+                                name: title.slice(0, title.indexOf(': The Exam')),
                                 sections: {}
                             };
 
