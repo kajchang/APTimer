@@ -4,7 +4,7 @@ import Layout from './Layout';
 
 import { withStyles } from '@material-ui/core/styles';
 
-const sectionRegex = /((?:[A-Z][a-z]+ ?)+) ?— ?(\d+) Questions? ?\| ?(\d+) Minutes ?(?:\(includes (\d+)-minute reading period\) )?\| ?(\d+)% of Exam Score/;
+const sectionRegex = /((?:[A-Z][a-z]+ ?)+) ?— ?(\d+) (?:[A-Z][a-z]+[- ]?)+ ?\| ((?:(?:\d+) (?:Minutes|Hours?),? )+)(?:\(includes (\d+)-minute reading period\) )?\| ?(\d+)% of Exam Score/g;
 
 const Section = withStyles({
     section: {
@@ -13,7 +13,8 @@ const Section = withStyles({
         }
     }
 })(({ name, sectionText, classes }) => {
-    const [, type, questions, minutes, readingMinutes, scorePercentage] = sectionRegex.exec(sectionText);
+    const [, type, questions, time, readingMinutes, scorePercentage] = sectionRegex.exec(sectionText);
+    sectionRegex.lastIndex = 0;
 
     return (
         <Paper
@@ -25,7 +26,7 @@ const Section = withStyles({
                     <strong style={ { display: 'block' } }>{ name }</strong>
                     <span style={ { display: 'block' } }>{ type }</span>
                     <span style={ { display: 'block' } }>
-                { questions } Questions — { minutes } Minutes
+                { questions } Questions — { time }
                         { readingMinutes ? <span> — { readingMinutes } Reading Minutes</span> : null }
                 </span>
                     <span style={ { display: 'block' } }>{ scorePercentage }% of Total Score</span>
@@ -47,7 +48,7 @@ const TestPage = ({ pageContext }) => {
             justify: 'center',
             alignItems: 'center',
             style: {
-                height: 'calc(100% - 64px)'
+                height: 'calc(85% - 64px)'
             }
         } }>
             <h3>{ name }</h3>
