@@ -3,7 +3,9 @@ import Layout from '../components/Layout';
 import TestSearch from '../components/TestSearch';
 
 const IndexPage = () => (
-    <Layout height='calc(70% - 64px)'>
+    <Layout style={ {
+        height: 'calc(70% - 64px)'
+    } }>
         <TestSearch/>
     </Layout>
 );
