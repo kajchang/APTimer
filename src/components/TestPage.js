@@ -90,7 +90,7 @@ const Timer = ({ sectionTitle, sectionText, cancel }) => {
             <Grid container direction='column' alignItems='center'>
                 <h3>{ sectionTitle } - { type }</h3>
                 <h1>{ new Date(1000 * timeRemaining).toISOString().substr(12, 7) }</h1>
-                <h4>Pacing: You should be at around Question { parseInt(questions) - Math.ceil(parseInt(questions) * (timeRemaining / parseTimeText(time)) ) }</h4>
+                <h4>Pacing: You should be on Question { parseInt(questions) - Math.floor(parseInt(questions) * (timeRemaining / parseTimeText(time))) + (timeRemaining / parseTimeText(time) === 1 ? 1 : 0) }</h4>
             </Grid>
         </Paper>
     );
