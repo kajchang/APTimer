@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef }  from 'react';
 import { Grid, Paper } from '@material-ui/core';
+import { Helmet } from 'react-helmet';
 import Layout from './Layout';
 
 import { withStyles } from '@material-ui/core/styles';
@@ -105,6 +106,9 @@ const TestPage = ({ pageContext }) => {
         <Layout style={ {
             minHeight: 'calc(85% - 64px)'
         } }>
+            <Helmet>
+                <title>{ name }</title>
+            </Helmet>
             <h3>{ name }</h3>
             { selectedSection ? <Timer
                 sectionTitle={ selectedSection }
